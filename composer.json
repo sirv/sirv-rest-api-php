@@ -1,0 +1,12 @@
+{
+    "name": "sirv/sirv-rest-api-php",
+    "description": "A PHP Class for Interacting with Sirv REST API",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Sirv",
+            "email": "support@sirv.com"
+        }
+    ],
+    "require": {}
+}
