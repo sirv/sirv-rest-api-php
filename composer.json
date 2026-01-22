@@ -1,0 +1,59 @@
+{
+    "name": "sirv/sirv-rest-api-php",
+    "description": "Official PHP SDK for Sirv REST API - Image and file management, CDN, 360 spin, and media optimization",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "sirv",
+        "cdn",
+        "image",
+        "media",
+        "optimization",
+        "360",
+        "spin",
+        "api",
+        "sdk",
+        "file-management"
+    ],
+    "authors": [
+        {
+            "name": "Sirv",
+            "email": "support@sirv.com",
+            "homepage": "https://sirv.com"
+        }
+    ],
+    "homepage": "https://github.com/sirv/sirv-rest-api-php",
+    "support": {
+        "issues": "https://github.com/sirv/sirv-rest-api-php/issues",
+        "docs": "https://apidocs.sirv.com/"
+    },
+    "require": {
+        "php": ">=7.4",
+        "ext-json": "*",
+        "ext-curl": "*",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "phpstan/phpstan": "^1.0",
+        "squizlabs/php_codesniffer": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sirv\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sirv\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "phpstan": "phpstan analyse src --level=6",
+        "cs-check": "phpcs --standard=PSR12 src",
+        "cs-fix": "phpcbf --standard=PSR12 src"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
