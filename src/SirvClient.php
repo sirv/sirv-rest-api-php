@@ -100,11 +100,12 @@ class SirvClient
     /**
      * Authenticate and obtain an access token.
      *
+     * @param int|null $expiresIn Optional token expiry time in seconds (5-604800)
      * @throws \Sirv\Exception\AuthenticationException
      */
-    public function authenticate(): string
+    public function authenticate(?int $expiresIn = null): string
     {
-        return $this->httpClient->authenticate();
+        return $this->httpClient->authenticate($expiresIn);
     }
 
     /**

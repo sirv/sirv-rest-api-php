@@ -67,49 +67,12 @@ try {
 } catch (\Sirv\Exception\AuthenticationException $e) {
     echo "Authentication failed: " . $e->getMessage() . "\n";
 }
+
+// Optional: Request a token with custom expiry time (5-604800 seconds)
+$token = $client->authenticate(3600); // Token valid for 1 hour
 ```
 
 ## API Resources
-
-### Account
-
-Manage your Sirv account settings and retrieve account information.
-
-```php
-// Get account information
-$account = $client->account()->get();
-
-// Update account settings
-$client->account()->update([
-    'minify' => ['enabled' => true],
-    'fetching' => ['enabled' => true, 'type' => 'http']
-]);
-
-// Get API limits
-$limits = $client->account()->getLimits();
-echo "API calls used: " . $limits['used'] . "/" . $limits['limit'] . "\n";
-
-// Get storage information
-$storage = $client->account()->getStorage();
-echo "Storage used: " . $storage['used'] . " bytes\n";
-
-// List account users
-$users = $client->account()->getUsers();
-
-// Get billing plan
-$plan = $client->account()->getBillingPlan();
-
-// Search account events
-$events = $client->account()->searchEvents([
-    'module' => 'files',
-    'level' => 'error',
-    'from' => '2024-01-01T00:00:00.000',
-    'to' => '2024-12-31T23:59:59.999'
-]);
-
-// Mark events as seen
-$client->account()->markEventsSeen(['event-id-1', 'event-id-2']);
-```
 
 ### Files
 
@@ -290,6 +253,46 @@ $jwt = $client->files()->getJwtUrl('/private/photo.jpg', ['expiry' => 3600]);
 echo "Protected URL: " . $jwt['url'] . "\n";
 ```
 
+### Account
+
+Manage your Sirv account settings and retrieve account information.
+
+```php
+// Get account information
+$account = $client->account()->get();
+
+// Update account settings
+$client->account()->update([
+    'minify' => ['enabled' => true],
+    'fetching' => ['enabled' => true, 'type' => 'http']
+]);
+
+// Get API limits
+$limits = $client->account()->getLimits();
+echo "API calls used: " . $limits['used'] . "/" . $limits['limit'] . "\n";
+
+// Get storage information
+$storage = $client->account()->getStorage();
+echo "Storage used: " . $storage['used'] . " bytes\n";
+
+// List account users
+$users = $client->account()->getUsers();
+
+// Get billing plan
+$plan = $client->account()->getBillingPlan();
+
+// Search account events
+$events = $client->account()->searchEvents([
+    'module' => 'files',
+    'level' => 'error',
+    'from' => '2024-01-01T00:00:00.000',
+    'to' => '2024-12-31T23:59:59.999'
+]);
+
+// Mark events as seen
+$client->account()->markEventsSeen(['event-id-1', 'event-id-2']);
+```
+
 ### Statistics
 
 Retrieve usage statistics for your account.
@@ -419,3 +422,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Sirv Website](https://sirv.com/)
 - [Sirv Dashboard](https://my.sirv.com/)
 - [Packagist Package](https://packagist.org/packages/sirv/sirv-rest-api-php)
+
+---
+
+©2026 Sirv Limited

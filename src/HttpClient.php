@@ -60,16 +60,29 @@ class HttpClient
     /**
      * Authenticate and obtain an access token.
      *
+     * @param int|null $expiresIn Optional token expiry time in seconds (5-604800)
      * @throws AuthenticationException
      */
-    public function authenticate(): string
+    public function authenticate(?int $expiresIn = null): string
     {
+        $payload = [
+            'clientId' => $this->clientId,
+            'clientSecret' => $this->clientSecret,
+        ];
+
+        if ($expiresIn !== null) {
+            if ($expiresIn < 5 || $expiresIn > 604800) {
+                throw new AuthenticationException(
+                    'expiresIn must be between 5 and 604800 seconds',
+                    400
+                );
+            }
+            $payload['expiresIn'] = $expiresIn;
+        }
+
         try {
             $response = $this->client->post(self::TOKEN_ENDPOINT, [
-                'json' => [
-                    'clientId' => $this->clientId,
-                    'clientSecret' => $this->clientSecret,
-                ],
+                'json' => $payload,
                 'headers' => [
                     'Content-Type' => 'application/json',
                 ],

@@ -118,6 +118,8 @@
             padding-bottom: 10px;
             margin-bottom: 20px;
             font-size: 1.8em;
+            padding-top: 70px;
+            margin-top: -70px;
         }
 
         h3 {
@@ -311,8 +313,8 @@
             <li><a href="#installation">Installation</a></li>
             <li><a href="#quickstart">Quick Start</a></li>
             <li><a href="#authentication">Authentication</a></li>
-            <li><a href="#account">Account</a></li>
             <li><a href="#files">Files</a></li>
+            <li><a href="#account">Account</a></li>
             <li><a href="#stats">Statistics</a></li>
             <li><a href="#user">User</a></li>
             <li><a href="#errors">Error Handling</a></li>
@@ -382,75 +384,10 @@
     <span class="keyword">echo</span> <span class="string">"Authenticated successfully\n"</span>;
 } <span class="keyword">catch</span> (\Sirv\Exception\AuthenticationException <span class="variable">$e</span>) {
     <span class="keyword">echo</span> <span class="string">"Authentication failed: "</span> . <span class="variable">$e</span>-><span class="function">getMessage</span>() . <span class="string">"\n"</span>;
-}</code></pre>
-            </section>
+}
 
-            <!-- Account -->
-            <section id="account">
-                <h2>Account API</h2>
-                <p>Manage your Sirv account settings and retrieve account information.</p>
-
-                <h3>Available Methods</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Method</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>get()</code></td>
-                            <td>Get account information including CDN URL and account name</td>
-                        </tr>
-                        <tr>
-                            <td><code>update(array $settings)</code></td>
-                            <td>Update account settings (minify, fetching)</td>
-                        </tr>
-                        <tr>
-                            <td><code>getLimits()</code></td>
-                            <td>Get API request limits and usage</td>
-                        </tr>
-                        <tr>
-                            <td><code>getStorage()</code></td>
-                            <td>Get storage usage information</td>
-                        </tr>
-                        <tr>
-                            <td><code>getUsers()</code></td>
-                            <td>List all account users</td>
-                        </tr>
-                        <tr>
-                            <td><code>getBillingPlan()</code></td>
-                            <td>Get billing plan details</td>
-                        </tr>
-                        <tr>
-                            <td><code>searchEvents(array $params)</code></td>
-                            <td>Search account events</td>
-                        </tr>
-                        <tr>
-                            <td><code>markEventsSeen(array $eventIds)</code></td>
-                            <td>Mark events as seen</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>Examples</h3>
-                <pre><code><span class="comment">// Get account information</span>
-<span class="variable">$account</span> = <span class="variable">$client</span>-><span class="function">account</span>()-><span class="function">get</span>();
-
-<span class="comment">// Get API limits</span>
-<span class="variable">$limits</span> = <span class="variable">$client</span>-><span class="function">account</span>()-><span class="function">getLimits</span>();
-<span class="keyword">echo</span> <span class="string">"API calls used: "</span> . <span class="variable">$limits</span>[<span class="string">'used'</span>] . <span class="string">"/"</span> . <span class="variable">$limits</span>[<span class="string">'limit'</span>] . <span class="string">"\n"</span>;
-
-<span class="comment">// Get storage information</span>
-<span class="variable">$storage</span> = <span class="variable">$client</span>-><span class="function">account</span>()-><span class="function">getStorage</span>();
-<span class="keyword">echo</span> <span class="string">"Storage used: "</span> . <span class="variable">$storage</span>[<span class="string">'used'</span>] . <span class="string">" bytes\n"</span>;
-
-<span class="comment">// Search account events</span>
-<span class="variable">$events</span> = <span class="variable">$client</span>-><span class="function">account</span>()-><span class="function">searchEvents</span>([
-    <span class="string">'module'</span> => <span class="string">'files'</span>,
-    <span class="string">'level'</span> => <span class="string">'error'</span>
-]);</code></pre>
+<span class="comment">// Optional: Request a token with custom expiry time (5-604800 seconds)</span>
+<span class="variable">$token</span> = <span class="variable">$client</span>-><span class="function">authenticate</span>(3600); <span class="comment">// Token valid for 1 hour</span></code></pre>
             </section>
 
             <!-- Files -->
@@ -566,6 +503,74 @@
 <span class="keyword">if</span> (<span class="variable">$result</span>[<span class="string">'status'</span>] === <span class="string">'completed'</span>) {
     <span class="keyword">echo</span> <span class="string">"ZIP URL: "</span> . <span class="variable">$result</span>[<span class="string">'url'</span>] . <span class="string">"\n"</span>;
 }</code></pre>
+            </section>
+
+            <!-- Account -->
+            <section id="account">
+                <h2>Account API</h2>
+                <p>Manage your Sirv account settings and retrieve account information.</p>
+
+                <h3>Available Methods</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>get()</code></td>
+                            <td>Get account information including CDN URL and account name</td>
+                        </tr>
+                        <tr>
+                            <td><code>update(array $settings)</code></td>
+                            <td>Update account settings (minify, fetching)</td>
+                        </tr>
+                        <tr>
+                            <td><code>getLimits()</code></td>
+                            <td>Get API request limits and usage</td>
+                        </tr>
+                        <tr>
+                            <td><code>getStorage()</code></td>
+                            <td>Get storage usage information</td>
+                        </tr>
+                        <tr>
+                            <td><code>getUsers()</code></td>
+                            <td>List all account users</td>
+                        </tr>
+                        <tr>
+                            <td><code>getBillingPlan()</code></td>
+                            <td>Get billing plan details</td>
+                        </tr>
+                        <tr>
+                            <td><code>searchEvents(array $params)</code></td>
+                            <td>Search account events</td>
+                        </tr>
+                        <tr>
+                            <td><code>markEventsSeen(array $eventIds)</code></td>
+                            <td>Mark events as seen</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Examples</h3>
+                <pre><code><span class="comment">// Get account information</span>
+<span class="variable">$account</span> = <span class="variable">$client</span>-><span class="function">account</span>()-><span class="function">get</span>();
+
+<span class="comment">// Get API limits</span>
+<span class="variable">$limits</span> = <span class="variable">$client</span>-><span class="function">account</span>()-><span class="function">getLimits</span>();
+<span class="keyword">echo</span> <span class="string">"API calls used: "</span> . <span class="variable">$limits</span>[<span class="string">'used'</span>] . <span class="string">"/"</span> . <span class="variable">$limits</span>[<span class="string">'limit'</span>] . <span class="string">"\n"</span>;
+
+<span class="comment">// Get storage information</span>
+<span class="variable">$storage</span> = <span class="variable">$client</span>-><span class="function">account</span>()-><span class="function">getStorage</span>();
+<span class="keyword">echo</span> <span class="string">"Storage used: "</span> . <span class="variable">$storage</span>[<span class="string">'used'</span>] . <span class="string">" bytes\n"</span>;
+
+<span class="comment">// Search account events</span>
+<span class="variable">$events</span> = <span class="variable">$client</span>-><span class="function">account</span>()-><span class="function">searchEvents</span>([
+    <span class="string">'module'</span> => <span class="string">'files'</span>,
+    <span class="string">'level'</span> => <span class="string">'error'</span>
+]);</code></pre>
             </section>
 
             <!-- Statistics -->
@@ -712,7 +717,7 @@
                 <a href="https://packagist.org/packages/sirv/sirv-rest-api-php" target="_blank">Packagist</a>
             </p>
             <p style="margin-top: 15px; color: #666;">
-                &copy; 2018-2026 Sirv Ltd. Released under the MIT License.
+                &copy;2026 Sirv Limited
             </p>
         </div>
     </footer>
